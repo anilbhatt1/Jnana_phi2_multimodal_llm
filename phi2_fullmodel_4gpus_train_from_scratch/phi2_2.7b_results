@@ -1,0 +1,72 @@
+root@C.8110876:/$ python main_script.py 
+/
+True
+2.1.0+cu121
+12.1
+2.1.0+cu121
+Number of CUDA devices: 4
+out/redpajama/version_1
+About to run...
+/
+strategy is <lightning.fabric.strategies.fsdp.FSDPStrategy object at 0x7fdb737627d0>
+{'model_name': 'phi-2', 'name': 'redpajama', 'save_interval': 1500, 'eval_interval': 1000, 'eval_iters': 100, 'log_interval': 100, 'learning_rate': 0.006, 'batch_size': 4, 'micro_batch_size': 1, 'gradient_accumulation_steps': 4, 'max_iters': 10000, 'weight_decay': 0.1, 'beta1': 0.9, 'beta2': 0.95, 'grad_clip': 1.0, 'decay_lr': True, 'warmup_iters': 2000, 'lr_decay_iters': 10000, 'min_lr': 6e-06}
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+/
+/
+/
+True
+2.1.0+cu121
+12.1
+2.1.0+cu121
+Number of CUDA devices: 4
+True
+2.1.0+cu121
+12.1
+2.1.0+cu121
+Number of CUDA devices: 4
+True
+2.1.0+cu121
+12.1
+2.1.0+cu121
+Number of CUDA devices: 4
+strategy is <lightning.fabric.strategies.fsdp.FSDPStrategy object at 0x7fce79409ed0>
+strategy is <lightning.fabric.strategies.fsdp.FSDPStrategy object at 0x7f0e5cb19d50>
+strategy is <lightning.fabric.strategies.fsdp.FSDPStrategy object at 0x7f5423141c60>
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+[rank: 0] Seed set to 1337
+Loading model with {'name': 'phi-2', 'hf_config': {'org': 'microsoft', 'name': 'phi-2'}, 'block_size': 128, 'vocab_size': 50257, 'padding_multiple': 512, 'padded_vocab_size': 51200, 'n_layer': 32, 'n_head': 32, 'n_embd': 2560, 'rotary_percentage': 0.4, 'parallel_residual': True, 'bias': True, 'lm_head_bias': True, 'n_query_groups': 32, 'shared_attention_norm': True, '_norm_class': 'LayerNorm', 'norm_eps': 1e-05, '_mlp_class': 'GptNeoxMLP', 'gelu_approximate': 'tanh', 'intermediate_size': 10240, 'rope_condense_ratio': 1, 'rope_base': 10000, 'n_expert': 0, 'n_expert_per_token': 0, 'head_size': 80, 'rope_n_elem': 32}
+Time to instantiate model: 0.12 seconds.
+Total parameters 2,779,683,840
+[rank: 2] Seed set to 1337
+[rank: 3] Seed set to 1337
+[rank: 1] Seed set to 1337
+Estimated TFLOPs: 8.65
+iter 0 step 0: loss 10.9637, LR: 0.000000, iter time: 4781.35ms
+iter 100 step 25: loss 8.0621, LR: 0.000300, iter time: 4130.94ms
+iter 200 step 50: loss 8.5914, LR: 0.000600, iter time: 4263.91ms
+iter 300 step 75: loss 7.4518, LR: 0.000900, iter time: 4129.27ms
+iter 400 step 100: loss 7.3591, LR: 0.001200, iter time: 4281.88ms
+iter 500 step 125: loss 7.3595, LR: 0.001500, iter time: 4132.91ms
+iter 600 step 150: loss 7.6166, LR: 0.001800, iter time: 4269.10ms
+iter 700 step 175: loss 9.4430, LR: 0.002100, iter time: 4144.23ms
+iter 800 step 200: loss 6.2617, LR: 0.002400, iter time: 4284.88ms
+iter 900 step 225: loss 7.2650, LR: 0.002700, iter time: 4114.82ms
+iter 1000 step 250: loss 6.8971, LR: 0.003000, iter time: 4252.03ms
+iter 1100 step 275: loss 7.6212, LR: 0.003300, iter time: 4120.24ms
+iter 1200 step 300: loss 6.9834, LR: 0.003600, iter time: 4244.07ms
+iter 1300 step 325: loss 8.2844, LR: 0.003900, iter time: 4103.05ms
+iter 1400 step 350: loss 6.5306, LR: 0.004200, iter time: 4237.59ms
+iter 1500 step 375: loss 6.7584, LR: 0.004500, iter time: 4134.87ms
+iter 1600 step 400: loss 5.9192, LR: 0.004800, iter time: 4289.71ms
+iter 1700 step 425: loss 5.1127, LR: 0.005100, iter time: 4126.35ms
+iter 1800 step 450: loss 7.0446, LR: 0.005400, iter time: 4258.33ms
+iter 1900 step 475: loss 6.8327, LR: 0.005700, iter time: 4127.26ms
+iter 2000 step 500: loss 6.9813, LR: 0.006000, iter time: 4253.92ms
+iter 2100 step 525: loss 6.2671, LR: 0.005998, iter time: 4130.52ms
