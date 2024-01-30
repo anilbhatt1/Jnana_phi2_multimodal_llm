@@ -54,3 +54,4 @@
 - Training was done on ~30K images out of 81K on A100 (40GB VRAM gpu) and stopped when loss value dropped from 9.8783 to 1.1321
 - Teacher-forcing was used while training to help faster convergence and batch-size used was 2
 - Details of training can be seen in *'Teacher forcing + Calling embeddings each time with EOI token as "caption image:" for 81K images'* section in the notebook [Stage1 Training Notebook](ERA1_s29_stage1_experiment_v1.ipynb)
+    - If **loading is slow** check colab notebook [ERA1_s29_stage1_experiment_v1.ipynb](https://colab.research.google.com/drive/1j17OBTrUNPymIxieYZ7aoHAaViiVhCft#scrollTo=AuRtmzNLeov1)
