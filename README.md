@@ -10,6 +10,7 @@
 - [Stage 3 - Integrating audio and building Jñāna - huggingface spaces app ](#stage-3-integrating-audio-and-building-jñāna-huggingface-spaces-app)
 - [Budget](#budget)
 - [Credits](#credits)
+- [My Linkedin](#contact)
 
 ### Huggingface space
 - https://huggingface.co/spaces/neuralorbs/
@@ -171,3 +172,5 @@
 - [Llava github](https://github.com/haotian-liu/LLaVA/tree/main)
 - [GPT LLM trainer](https://github.com/mshumer/gpt-llm-trainer)
 - [HF PEFT training pytorch example](https://github.com/huggingface/peft/tree/main/examples/multilayer_perceptron)
+### My Linkedin
+- Connect me in linkedin at [Anil Bhatt](www.linkedin.com/in/anilkumar-n-bhatt)
