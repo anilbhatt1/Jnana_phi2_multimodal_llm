@@ -25,9 +25,10 @@
 - qlora strategy was used for fine-tuning microsoft/phi2 
 - Training strategy and building Hugging face app is detailed in the below sections that follow.
 ### Demo
-- [Blog on developing this app](http://tinyurl.com/jnana-blog)
+- [Blog detailing development of this app](http://tinyurl.com/jnana-blog) 
 - [Youtube Demo](http://tinyurl.com/jnana-youtube)
-- Below is an image inferred by Jnana accepting all 3 forms of input – image, audio and text. Audio query given was *“Please explain this image“.*
+- Below is an image inferred by Jnana accepting all 3 forms of input – image, audio and text. 
+- Audio query given was *“Please explain this image“.*
     <img src="Savannah_demo-1.png" alt="Savannah Demo" width="400"/>
 ### Stage 0 Attempting to train phi2 from scratch
 [Back to top](#table-of-contents)
