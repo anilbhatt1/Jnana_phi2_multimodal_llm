@@ -19,7 +19,7 @@
 ### Introduction
 [Back to top](#table-of-contents)
 - **Jñāna-Phi2-Multimodal-Conversation-Agent** is a gradio app hosted on huggingface spaces
-- Jñāna is capable of accepting inputs in the form of image/audio/text and a combination of any of these 3
+- Jñāna is capable of accepting inputs in the form of image/audio/text or a combination of any of these 3
 - Jñāna uses **microsoft/phi2** LLM model that was trained based on **Llava 1.0** and **Llava 1.5** 
 - qlora strategy was used for fine-tuning microsoft/phi2 
 - Training strategy and building Hugging face app is detailed in the below sections that follow.
@@ -45,7 +45,7 @@
 - In stage-1, we will deal with converting image to an embedding format that phi2 can accept and process.
 - Refer the flow-chart below to understand the overall flow:
     <img src="Stage1_Flow.png" alt="Stage1 Flow" width="400"/>
-- We will pass the image to a CLIP model - openai/clip-vit-base-patch32
+- We will pass the image to a CLIP model - [openai/clip-vit-base-patch32](https://huggingface.co/openai/clip-vit-base-patch32)
 - We will take the image embeddings from CLIP - one before projection layer whose shape is [50, 768]
 - As suggested in [Llava1.0 paper](https://arxiv.org/pdf/2304.08485.pdf) we will discard the 1st layer that has CLS embeddings and retain [49, 768]
 - We will pass this [49, 768] through a linear layer that will convert Clip embeddings to phi2 embedding dimensions i.e. from [49, 768] to [49, 2560]
@@ -63,7 +63,7 @@
 - Then, [4, 2560] will be appended with the [49, 2560] that we got from projection model to give [53, 2560]
 - We will pass this [53, 2560] embeddings to phi2 forward method again & again until the caption length of image is matched as seen below
 - We will extract the last layers correpsonding to the caption and compare it with ground truth caption for loss calculation
-- Loss is backpropagated, projection linear layer and projection model weights updated and next batch picked-up
+- Loss is backpropagated, projection linear layer and projection model weights updated and next batch picked-up. Loss used is cross-entropy loss.
 - Training loop is as shown below
     <img src="Stage1_Model_Train_Flow.png" alt="Stage2 Training Flow" width="400"/>
 - Dataset we are using here is [instruct150K](https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K) which have ~ 81K [coco train 2017 images](https://cocodataset.org/#download)
@@ -77,13 +77,13 @@
 [Back to top](#table-of-contents)
 - Pretrained phi2 is capable of only generating text
 - We have to fine-tune phi2 to engage in a conversation i.e when asked a query it should be able to answer it sensibly
-- In stage 1, we trained projection model which gives us now meaningful context about the image
-- Now, we will append the [53, 2560] that we get from projection model with query embeddings and generate the answer
-- This answer will be compared with the ground truth answer
+- In stage 1, we trained projection model which will now give us meaningful context about the image
 - In stage2, we will fine-tune the phi2 so that it will become capable to handle a conversation
 - We will also fine-tune the projection linear layer and projection model so that they continue to learn about the images from the conversation data also
+- Now, we will append the [53, 2560] that we get from projection model with query embeddings and generate the answer
+- This answer will be compared with the ground truth answer
 - To stay within the memory constraints, phi2 will be downloaded in 4-bits and trained using peft-qlora strategy
-- peft-qlora strategy will add adapter weights on top of the pretrained phi2 model which comes to be around just 3% of total weights ```trainable params: 94,371,840 || all params: 2,869,421,175 || trainable%: 3.2888807269640368``` which is  light-weight and manageable
+- peft-qlora strategy will add adapter weights on top of the pretrained phi2 model which comes to be around just 3% of total weights ```trainable params: 94,371,840 || all params: 2,869,421,175 || trainable%: 3.288``` which is  light-weight and manageable
 - Unlike stage 1, stage 2 was trained with a single model.forward() call to phi2 making it memory efficient
     <img src="Stage2_Model_Train_Flow.png" alt="Stage2 Training Flow" width="400"/>
 - For an answer of 30 tokens, training happens as below:
@@ -91,9 +91,8 @@
         - ```<EOI [B, 4, 2560]>``` -> EOI used is same as in stage-1 i.e. *"caption image:"*
         - ```<EOQ [B, 4, 2560]>``` -> EOQ i.e End Of Question used is *"end of question:"*
     - Input shape ```[B, 107, 2560]```
-    - Input goes to ```model.forward()```
-    - Gets back logits of ```[B, 107, 50257]```
-    - preds = Take final token of EOQ + last 30 tokens ```[B, 76:, 50257]```
+    - Input goes to ```model.forward()``` and gives back logits of ```[B, 107, 50257]```
+    - preds = Take final token of EOQ + last 30 tokens which will be ```[B, 76:, 50257]```
     - Add End-of-Sentence "<|endoftext|>" token to the answer target
     - Compare preds with target for loss calculation
 - Loss calculation happens as below. Shown below is for a single batch but it can scale to any number of batches.
@@ -104,8 +103,9 @@
     - As we can see, in the image above except for 3 tokens (circled in red), model got it correct
 - Loss used is cross-entropy loss here as well
 - Training was done on [instruct150K](https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K) dataset
-- In stage-1 we trained instruct150k images against coco-captions, whereas here we will use the images with question/answer format present in instruct150k for training objective is to make phi2 capable for conversations
-- Instruct150k conversation were broken down into question-answer format and in total 3_56_752 records were there
+- In stage-1 we trained instruct150k images against coco-captions, whereas here we will use the images with question/answer format present in instruct150k 
+- This is beacuse our training objective in stage-2 is to make phi2 capable for conversations
+- Instruct150k conversation were broken down into question-answer format and in total 3_56_752 records were there.
 - This json format was sorted based on ascending order of answer length
 - Then, answer lengths upto 119 tokens that comprises 2_60_564 records were trained against T4 GPU (15 GB VRAM) in different batches as shown below:
     - Different batch_sizes were choosen to avoid OOM issues
@@ -160,7 +160,7 @@
 - HF spaces code can also be seen in [Jñāna files section](https://huggingface.co/spaces/neuralorbs/Jnana-Phi2-Multimodal-Conversation-Agent/tree/main)
 ### Budget
 [Back to top](#table-of-contents)
-- This costed me roughly ₹4000 (close to $50) to develop this LLM apart from my 3 weeks personal effort
+- Overall it costed me ~ ₹4000 (around $50) to develop this LLM apart from my 3 weeks personal effort
 - ~ $12 for 4 RTX 3090 GPUs to train phi2 from scratch on stage-0
 - ~ $26 for A100 compute units to train proj model on stage-1
 - ~ $12 for T4 compute units to fine-tune proj model and phi-2 on stage-2
