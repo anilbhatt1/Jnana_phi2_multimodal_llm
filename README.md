@@ -97,7 +97,7 @@
     - Compare preds with target for loss calculation
 - Loss calculation happens as below. Shown below is for a single batch but it can scale to any number of batches.
     <img src="Stage2_Loss_Example.png" alt="Stage2 Training Flow" width="400"/>
-    - In this example, when last token of EOS which ":" is encountered, model is expected to predict first word of the answer which is "The"
+    - In this example, when last token of EOQ ":" is encountered, model is expected to predict first word of the answer which is "The"
     - Similarly when "The" is seen, model should predict "color" and so on
     - Finally when "." is seen, model should predict "<|endoftext|>"
     - As we can see, in the image above except for 3 tokens (circled in red), model got it correct
