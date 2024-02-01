@@ -4,7 +4,6 @@
 
 - [Huggingface space](#huggingface-space)
 - [Introduction](#introduction)
-- [Demo](#demo)
 - [Stage 0 : Attempting to train phi2 from scratch](#stage-0-attempting-to-train-phi2-from-scratch)
 - [Stage 1 : Training the projection models](#stage-1-training-the-projection-models)
 - [Stage 2 : Fine tuning the projection models and phi2](#stage-2-fine-tuning-the-projection-models-and-phi2)
@@ -16,7 +15,11 @@
 ### Huggingface space
 [Back to top](#table-of-contents)
 - https://huggingface.co/spaces/neuralorbs/Jnana-Phi2-Multimodal-Conversation-Agent
-
+- [Blog detailing development of this app](http://tinyurl.com/jnana-blog) 
+- [Youtube Demo](http://tinyurl.com/jnana-youtube)
+- Below is an image inferred by Jnana accepting all 3 forms of input – image, audio and text. 
+- Audio query given was *“Please explain this image“.*
+    <img src="Savannah_demo-1.png" alt="Savannah Demo" width="400"/>
 ### Introduction
 [Back to top](#table-of-contents)
 - **Jñāna-Phi2-Multimodal-Conversation-Agent** is a gradio app hosted on huggingface spaces
@@ -24,12 +27,6 @@
 - Jñāna uses **microsoft/phi2** LLM model that was trained based on **Llava 1.0** and **Llava 1.5** 
 - qlora strategy was used for fine-tuning microsoft/phi2 
 - Training strategy and building Hugging face app is detailed in the below sections that follow.
-### Demo
-- [Blog detailing development of this app](http://tinyurl.com/jnana-blog) 
-- [Youtube Demo](http://tinyurl.com/jnana-youtube)
-- Below is an image inferred by Jnana accepting all 3 forms of input – image, audio and text. 
-- Audio query given was *“Please explain this image“.*
-    <img src="Savannah_demo-1.png" alt="Savannah Demo" width="400"/>
 ### Stage 0 Attempting to train phi2 from scratch
 [Back to top](#table-of-contents)
 - In this stage, microsoft-phi2 was build from scratch using customized [config.py](phi2_fullmodel_4gpus_train_from_scratch/config.py) based on [lit-gpt](https://github.com/Lightning-AI/lit-gpt/tree/main/lit_gpt)
