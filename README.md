@@ -15,7 +15,7 @@
 
 ### Huggingface space
 [Back to top](#table-of-contents)
-- https://huggingface.co/spaces/neuralorbs/
+- https://huggingface.co/spaces/neuralorbs/Jnana-Phi2-Multimodal-Conversation-Agent
 
 ### Introduction
 [Back to top](#table-of-contents)
